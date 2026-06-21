@@ -36,6 +36,10 @@
       <HintPath>$(GameDir)\BepInEx\interop\Project.dll</HintPath>
       <Private>false</Private>
     </Reference>
+    <Reference Include="Absf">
+      <HintPath>$(GameDir)\BepInEx\interop\Absf.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
   </ItemGroup>
 
 </Project>
