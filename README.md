@@ -1,6 +1,6 @@
-# dot-abyss-font-space-patch
+# FontSpacePatch
 
-A BepInEx plugin for ドットアビスX (Dot Abyss X) that forces `_fontSpace` to `-6.5` on all `NovelText` instances.
+A BepInEx plugin for ドットアビスX (Dot Abyss X) that forces `_fontSpace` to `-6.0` on all `NovelText` instances.
 
 ## Setup (required before building)
 

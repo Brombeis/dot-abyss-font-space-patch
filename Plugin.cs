@@ -18,6 +18,7 @@ public class Plugin : BasePlugin
 // Both Initialize and SetParam need to be patched because the game calls
 // SetParam after Initialize and would otherwise reset our values.
 // Only sizes 30, 36, 40, 48 are valid — anything else crashes GetFontSize().
+// Update: Scratch that, 36 crashes it too. What the fuck?
 
 [HarmonyPatch(typeof(NovelText), nameof(NovelText.Initialize))]
 static class NovelText_Initialize_Patch
