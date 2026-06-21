@@ -21,7 +21,7 @@ static class NovelText_Initialize_Patch
     [HarmonyPostfix]
     static void Postfix(NovelText __instance)
     {
-        __instance.SetFontSpace(-6f);
+        __instance.SetFontSpace(-6.5f);
     }
 }
 
@@ -31,6 +31,6 @@ static class NovelText_SetParam_Patch
     [HarmonyPostfix]
     static void Postfix(NovelText __instance)
     {
-        __instance.SetFontSpace(-6f);
+        __instance.SetFontSpace(-6.5f);
     }
 }
