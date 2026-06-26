@@ -18,7 +18,6 @@ public class Plugin : BasePlugin
 // Both Initialize and SetParam need to be patched because the game calls
 // SetParam after Initialize and would otherwise reset our values.
 // Only sizes 30, 36, 40, 48 are valid — anything else crashes GetFontSize().
-// Update: Scratch that, 36 crashes it too. What the fuck?
 
 [HarmonyPatch(typeof(NovelText), nameof(NovelText.Initialize))]
 static class NovelText_Initialize_Patch
@@ -48,11 +47,22 @@ static class NovelText_SetParam_Patch
 
 // Proportional mode has a bug where spaces render ~1/7th their normal width.
 // This can't be fixed in the layout code (it's native IL2CPP inside Show()).
-// The workaround is writing 7 spaces per word gap in translation files.
-//
-// That creates a new problem: the typing animation pauses on each space,
-// so a single word gap causes 7× the normal delay. This patch fixes that
-// by skipping the text counter past consecutive spaces in one frame.
+// Expanding each space to 7 spaces at Parse time (not in translation files)
+// keeps the text log clean — AddLog receives the original single-space string.
+
+[HarmonyPatch(typeof(NovelText), nameof(NovelText.Parse))]
+static class NovelText_Parse_Patch
+{
+    [HarmonyPrefix]
+    static void Prefix(ref string message)
+    {
+        message = message.Replace(" ", "       ");
+    }
+}
+
+// The 7× space expansion creates a new problem: the typing animation pauses
+// on each space, so a single word gap causes 7× the normal delay.
+// This patch skips the text counter past consecutive spaces in one frame.
 //
 // Important: the typing animation lives in NovelViewMessageWindow, NOT in
 // NovelMessageTextComponent (which handles center/UI text only).
